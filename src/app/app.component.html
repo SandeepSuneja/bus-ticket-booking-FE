@@ -1,20 +1,17 @@
-<div>Hello, {{title}}</div>
-
-<div>
-  <table>
-    <tr>
-      <th>Bus ID</th>
-      <th>Route ID</th>
-      <th>Bus Number</th>
-      <th>Seat Capacity</th>
-      <th>Status</th>
-    </tr>
-    <tr *ngFor="let bus of buses">
-      <td>{{bus.bus_id}}</td>
-      <td>{{bus.route_id}}</td>
-      <td>{{bus.bus_number}}</td>
-      <td>{{bus.seat_capacity}}</td>
-      <td>{{bus.status}}</td>
-    </tr>
-  </table>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <app-header></app-header>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <app-main></app-main>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <app-footer></app-footer>
+    </div>
+  </div>
 </div>

@@ -1,0 +1,40 @@
+<div class="search row">
+    <div class="col">
+        <app-search-box></app-search-box>
+    </div>
+</div>
+<div class="row">
+    <div class="col-3" *ngFor="let bus of buses">
+        <div class="card" style="text-align: center; margin: 10px 0;">
+            <div class="card-body">
+              <i class="bi bi-bus-front"></i>  
+              <h5 class="card-title">{{bus.bus_number}}</h5>
+              <h6 class="card-subtitle mb-2 text-body-secondary">Status: {{bus.status}}</h6>
+              <p class="card-text">Seat Capacity: {{bus.seat_capacity}}</p>
+              <button type="button" 
+                class="btn btn-primary btn-sm"
+                data-bs-toggle="modal" data-bs-target="#bookModal" (click)="getBusData(bus.bus_id)">Select</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="bookModal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Bus Details</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="text-align: center;">
+          <h6>{{route.origin}} ----> {{route.destination}}</h6>
+          <p>{{schedule.departure_time}} - {{schedule.arrival_time}}</p>
+          <p>Duration: {{route.duration}}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary">Book</button>
+        </div>
+      </div>
+    </div>
+  </div>
