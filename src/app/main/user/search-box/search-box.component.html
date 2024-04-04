@@ -1,0 +1,32 @@
+<div class="search row">
+    <div class="col">
+        <div class="row">
+            <div class="col-6">
+                <div class="mb-3">
+                    <select #end1 class="form-select" (change)="onSelect(end1.value, 'origin')">
+                        <option selected>Select Origin</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Haridwar">Haridwar</option>
+                        <option value="Rishikesh">Rishikesh</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="mb-3">
+                    <select #end2 class="form-select" (change)="onSelect(end2.value, 'destination')">
+                        <option selected>Select Origin</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Haridwar">Haridwar</option>
+                        <option value="Rishikesh">Rishikesh</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col d-grid gap-2">
+                <button type="button" class="btn btn-primary btn-sm" 
+                    (click)="search()">Search</button>
+            </div>
+        </div>
+    </div>
+</div>

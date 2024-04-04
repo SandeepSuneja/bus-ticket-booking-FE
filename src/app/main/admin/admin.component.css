@@ -1,0 +1,9 @@
+.admin {
+    margin-top: 60px;
+}
+
+table, tr, th, td {
+    border-collapse: collapse;
+    border: 1px solid grey;
+    text-align: center;
+}
