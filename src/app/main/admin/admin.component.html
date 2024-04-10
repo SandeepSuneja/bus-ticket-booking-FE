@@ -1,83 +1,133 @@
 <div class="admin">
     <div class="row">
-        <div class="col-3">
-          <div id="admin-options" class="list-group">
+        <div class="col-2">
+          <div id="admin-options" class="list-group admin-options">
             <a class="list-group-item list-group-item-action" href="#buses">Buses</a>
             <a class="list-group-item list-group-item-action" href="#routes">Routes</a>
             <a class="list-group-item list-group-item-action" href="#schedules">Schedules</a>
-            <a class="list-group-item list-group-item-action" href="#users">Users</a>
+            <!-- <a class="list-group-item list-group-item-action" href="#users">Users</a> -->
             <a class="list-group-item list-group-item-action" href="#bookings">Bookings</a>
           </div>
         </div>
-        <div class="col-9">
+        <div class="col-10">
           <div data-bs-spy="scroll" 
             data-bs-target="#admin-options" 
-            data-bs-smooth-scroll="true" 
-            class="scrollspy-example" tabindex="0">
-                <h4 id="buses">Buses <i class="bi bi-plus-circle"></i></h4>
-                <table>
-                    <tr>
-                        <th>Bus Number</th>
-                        <th>Seat Capacity</th>
-                        <th>Seat Occupied</th>
-                        <th>Ticket Price</th>
-                        <th>Status</th>
-                        <th>Created At</th>
-                        <th>Updated At</th>
-                    </tr>
-                    <tr *ngFor="let bus of buses">
-                        <td>{{bus.bus_number}}</td>
-                        <td>{{bus.seat_capacity}}</td>
-                        <td>{{bus.seat_occupied}}</td>
-                        <td>{{bus.ticket_price}}</td>
-                        <td>{{bus.status}}</td>
-                        <td>{{bus.created_at}}</td>
-                        <td>{{bus.updated_at}}</td>
-                        <td><i class="bi bi-pencil"></i></td>
-                        <td><i class="bi bi-trash3"></i></td>
-                    </tr>
-                </table>
-                <h4 id="routes">Routes <i class="bi bi-plus-circle"></i></h4>
-                <table>
-                    <tr>
-                        <th>Origin</th>
-                        <th>Destination</th>
-                        <th>Distance</th>
-                        <th>Duration</th>
-                        <th>Status</th>
-                        <th>Created At</th>
-                        <th>Updated At</th>
-                    </tr>
-                    <tr *ngFor="let route of routes">
-                        <td>{{route.origin}}</td>
-                        <td>{{route.destination}}</td>
-                        <td>{{route.distance}} kms</td>
-                        <td>{{route.duration}} hour(s)</td>
-                        <td>{{route.status}}</td>
-                        <td>{{route.created_at}}</td>
-                        <td>{{route.updated_at}}</td>
-                        <td><i class="bi bi-pencil"></i></td>
-                        <td><i class="bi bi-trash3"></i></td>
-                    </tr>
-                </table>
-                <h4 id="schedules">Schedules <i class="bi bi-plus-circle"></i></h4>
-                <table>
-                    <tr>
-                        <th>Departure Time</th>
-                        <th>Arrival Time</th>
-                        <th>Created At</th>
-                        <th>Updated At</th>
-                    </tr>
-                    <tr *ngFor="let schedule of schedules">
-                        <td>{{schedule.departure_time}}</td>
-                        <td>{{schedule.arrival_time}}</td>
-                        <td>{{schedule.created_at}}</td>
-                        <td>{{schedule.updated_at}}</td>
-                        <td><i class="bi bi-pencil"></i></td>
-                        <td><i class="bi bi-trash3"></i></td>
-                    </tr>
-                </table>
-                <h4 id="users">Users</h4>
+            data-bs-smooth-scroll="true" tabindex="0">
+                <div id="buses" class="mb-5">
+                    <h5>Buses <button type="button" class="btn btn-primary add-btn" data-bs-toggle="modal" data-bs-target="#busModal">
+                        <i class="bi bi-plus-circle icon" ></i>
+                    </button></h5>
+                    <hr>
+                    <table>
+                        <tr>
+                            <th>Bus Number</th>
+                            <th>Seat Capacity</th>
+                            <th>Seat Occupied</th>
+                            <th>Ticket Price</th>
+                            <th>Status</th>
+                            <th>Created At</th>
+                            <th>Updated At</th>
+                        </tr>
+                        <tr *ngFor="let bus of buses">
+                            <td>{{bus.bus_number}}</td>
+                            <td>{{bus.seat_capacity}}</td>
+                            <td>{{bus.seat_occupied}}</td>
+                            <td>{{bus.ticket_price}}</td>
+                            <td>{{bus.status}}</td>
+                            <td>{{bus.created_at}}</td>
+                            <td>{{bus.updated_at}}</td>
+                            <td>
+                                <button type="button" class="btn btn-primary action-btn" 
+                                    data-bs-toggle="modal" data-bs-target="#busModal"
+                                    (click)="editEntity(bus.bus_id, 'bus')">
+                                    <i class="bi bi-pencil icon"></i>
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button" 
+                                    class="btn btn-primary action-btn action-btn" (click)="deleteEntity(bus.bus_id, 'bus')">
+                                    <i class="bi bi-trash3 icon"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="routes" class="mb-5">
+                    <h5>Routes <button type="button" class="btn btn-primary add-btn" data-bs-toggle="modal" data-bs-target="#routeModal">
+                        <i class="bi bi-plus-circle icon"></i>
+                    </button></h5>
+                    <hr>
+                    <table>
+                        <tr>
+                            <th>Origin</th>
+                            <th>Destination</th>
+                            <th>Distance</th>
+                            <th>Duration</th>
+                            <th>Status</th>
+                            <th>Created At</th>
+                            <th>Updated At</th>
+                        </tr>
+                        <tr *ngFor="let route of routes">
+                            <td>{{route.origin}}</td>
+                            <td>{{route.destination}}</td>
+                            <td>{{route.distance}} kms</td>
+                            <td>{{route.duration}} hour(s)</td>
+                            <td>{{route.status}}</td>
+                            <td>{{route.created_at}}</td>
+                            <td>{{route.updated_at}}</td>
+                            <td>
+                                <button type="button" class="btn btn-primary action-btn" 
+                                    data-bs-toggle="modal" data-bs-target="#routeModal"
+                                    (click)="editEntity(route.route_id, 'route')">
+                                    <i class="bi bi-pencil icon"></i>
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button" 
+                                    class="btn btn-primary action-btn action-btn" (click)="deleteEntity(route.route_id, 'route')">
+                                    <i class="bi bi-trash3 icon"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="schedules" class="mb-5">
+                    <h5>Schedules <button type="button" class="btn btn-primary add-btn" data-bs-toggle="modal" data-bs-target="#scheduleModal">
+                        <i class="bi bi-plus-circle icon"></i>
+                    </button></h5>
+                    <hr>
+                    <table>
+                        <tr>
+                            <th>Departure Time</th>
+                            <th>Arrival Time</th>
+                            <th>Created At</th>
+                            <th>Updated At</th>
+                        </tr>
+                        <tr *ngFor="let schedule of schedules">
+                            <td>{{schedule.departure_time}}</td>
+                            <td>{{schedule.arrival_time}}</td>
+                            <td>{{schedule.created_at}}</td>
+                            <td>{{schedule.updated_at}}</td>
+                            <td>
+                                <button type="button" class="btn btn-primary action-btn" 
+                                    data-bs-toggle="modal" data-bs-target="#scheduleModal"
+                                    (click)="editEntity(schedule.schedule_id, 'schedule')">
+                                    <i class="bi bi-pencil icon"></i>
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button" 
+                                    class="btn btn-primary action-btn action-btn" (click)="deleteEntity(schedule.schedule_id, 'schedule')">
+                                    <i class="bi bi-trash3 icon"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!-- <div id="users" class="mb-5">
+                    <h5>Users <i class="bi bi-plus-circle icon add"></i></h5>
+                    <hr>
+                </div> -->
                 <!-- <table>
                     <tr>
                         <th>First Name</th>
@@ -98,7 +148,10 @@
                         <td>{{user.updated_at}}</td>
                     </tr>
                 </table> -->
-                <h4 id="bookings">Bookings</h4>
+                <div id="bookings" class="mb-5">
+                    <h5>Bookings <i class="bi bi-plus-circle icon add"></i></h5>
+                    <hr>
+                </div>
                 <!-- <table>
                     <tr>
                         <th>Bus Number</th>
@@ -123,3 +176,96 @@
         </div>
     </div>
 </div>
+
+<div class="modal" tabindex="-1" id="busModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Bus Form</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="busForm">
+                <div class="mb-3">
+                    <input formControlName="bus_number" type="text" class="form-control" placeholder="Bus Number">
+                </div>
+                <div class="mb-3">
+                    <input formControlName="seat_capacity" type="text" class="form-control" placeholder="Seat Capacity">
+                </div>
+                <div class="mb-3">
+                    <input formControlName="status" type="text" class="form-control" placeholder="Status">
+                </div>
+                <div class="mb-3">
+                    <input formControlName="ticket_price" type="text" class="form-control" placeholder="Ticket Price">
+                </div>
+                <div class="mb-3">
+                    <input formControlName="seat_occupied" type="text" class="form-control" placeholder="Seat Occupied">
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" tabindex="-1" id="routeModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Route Form</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="routeForm">
+                <div class="mb-3">
+                    <input formControlName="origin" type="text" class="form-control" placeholder="Origin">
+                </div>
+                <div class="mb-3">
+                    <input formControlName="destination" type="text" class="form-control" placeholder="Destination">
+                </div>
+                <div class="mb-3">
+                    <input formControlName="distance" type="text" class="form-control" placeholder="Distance">
+                </div>
+                <div class="mb-3">
+                    <input formControlName="duration" type="text" class="form-control" placeholder="Duration">
+                </div>
+                <div class="mb-3">
+                    <input formControlName="status" type="text" class="form-control" placeholder="Status">
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" tabindex="-1" id="scheduleModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Schedule Form</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="scheduleForm">
+                <div class="mb-3">
+                    <input formControlName="departure_time" type="text" class="form-control" placeholder="Departure Time">
+                </div>
+                <div class="mb-3">
+                    <input formControlName="arrival_time" type="text" class="form-control" placeholder="Arrival Time">
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>

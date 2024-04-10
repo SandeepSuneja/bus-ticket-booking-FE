@@ -3,6 +3,7 @@ import { LoginComponent } from './main/login/login.component';
 import { UserComponent } from './main/user/user.component';
 import { AdminComponent } from './main/admin/admin.component';
 import { NotFoundComponent } from './main/not-found/not-found.component';
+import { authGuard } from './auth.guard';
 
 export const routes: Routes = [
     {
@@ -11,11 +12,13 @@ export const routes: Routes = [
     },
     {
         path: 'user',
-        component: UserComponent
+        component: UserComponent,
+        canActivate: [authGuard]
     },
     {
         path: 'admin',
-        component: AdminComponent
+        component: AdminComponent,
+        canActivate: [authGuard]
     },
     {
         path: '',

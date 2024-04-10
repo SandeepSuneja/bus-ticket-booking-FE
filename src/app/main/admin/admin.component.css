@@ -1,9 +1,43 @@
 .admin {
     margin-top: 60px;
 }
-
+.admin-options {
+    position: fixed;
+}
 table, tr, th, td {
     border-collapse: collapse;
-    border: 1px solid grey;
+    border: 2px solid white;
     text-align: center;
+    color: white;
+    padding: 10px;
 }
+
+th {
+    background-color: #031633;
+}
+
+td {
+    background-color: lightgrey;
+    color: black;
+}
+
+.list-group-item.active {
+    background-color: #031633;
+}
+
+.icon {
+    cursor: pointer;
+}
+
+.add-btn {
+    background-color: #031633;
+    padding: 5px 25px;
+    border-color: #031633;
+}
+
+.action-btn {
+    background-color: transparent;
+    color: black;
+    border-color: transparent;
+}
+
