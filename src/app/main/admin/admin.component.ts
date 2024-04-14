@@ -70,8 +70,38 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  editEntity(entity_id: number, entityType: string) {
-    console.log(entity_id, entityType);
+  addOrEditEntity(entity_id?: number, entityType?: string, mode?: string) {
+    if (mode === 'edit') {
+      if (entityType === 'bus') {
+        let selectedBus = this.buses.filter((bus: any) => bus.bus_id === entity_id);
+        this.busForm.setValue({
+          bus_number: selectedBus[0].bus_number || '',
+          seat_capacity: selectedBus[0].seat_capacity || '',
+          status: selectedBus[0].status || '',
+          ticket_price: selectedBus[0].ticket_price || '',
+          seat_occupied: selectedBus[0].seat_occupied || ''
+        });
+      } else if (entityType === 'route') {
+        let selectedRoute = this.routes.filter((route: any) => route.route_id === entity_id);
+        this.routeForm.setValue({
+          origin: selectedRoute[0].origin || '',
+          destination: selectedRoute[0].destination || '',
+          distance: selectedRoute[0].distance || '',
+          duration: selectedRoute[0].duration || '',
+          status: selectedRoute[0].status || ''
+        })
+      } else if (entityType === 'schedule') {
+        let selectedSchedule = this.schedules.filter((schedule: any) => schedule.schedule_id === entity_id);
+        this.scheduleForm.setValue({
+          departure_time: selectedSchedule[0].departure_time || '',
+          arrival_time: selectedSchedule[0].arrival_time || ''
+        });
+      }
+    } else {
+      this.busForm.reset();
+      this.routeForm.reset();
+      this.scheduleForm.reset();
+    }
   }
 
   deleteEntity(entity_id: number, entityType: string) {

@@ -1,1 +1,9 @@
-<router-outlet></router-outlet>
+<div class="row" style="margin-top: 60px;">
+    <div class="col">
+        <div *ngIf="signedIn" style="text-align: right; float: right;">
+            <span class="name">Hello, {{name}}</span>
+            <button class="btn btn-primary logout" (click)="logout()">Logout</button>
+        </div>
+    </div>
+</div>
+<router-outlet (loginEvent)="login($event)"></router-outlet>

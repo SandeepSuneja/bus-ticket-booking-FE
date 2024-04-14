@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { jwtDecode } from "jwt-decode";
+import { ApiService } from '../../api.service';
 
 @Component({
   selector: 'app-login',
@@ -16,8 +16,9 @@ import { jwtDecode } from "jwt-decode";
 export class LoginComponent {
 
   loginForm: FormGroup;
+  @Output() loginEvent: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private http: HttpClient, private route: Router){
+  constructor(private route: Router, private apiService: ApiService){
     this.loginForm = new FormGroup({
       email: new FormControl(''),
       password: new FormControl('')
@@ -25,9 +26,7 @@ export class LoginComponent {
   }
 
   login(form: FormGroup) {
-    this.http.post('http://localhost:5047/api/Auth', 
-      {"email": form.value.email, "password": form.value.password}, {responseType: 'text'}).subscribe((data) => {
-      console.log(data);
+    this.apiService.login('Auth', {"email": form.value.email, "password": form.value.password}).subscribe((data) => {
       let decoded: any = jwtDecode(data);
       sessionStorage.setItem('auth', data);
       if (decoded['type'] === 'user'){
@@ -35,6 +34,7 @@ export class LoginComponent {
       } else if (decoded['type'] === 'admin') {
         this.route.navigate(['/admin']);
       }
+      this.loginEvent.emit(decoded['first_name']+' '+ decoded['last_name']);
     });
   }
 }

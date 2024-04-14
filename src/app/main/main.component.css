@@ -1,0 +1,11 @@
+.logout {
+    background-color: #031633;
+    color: #fff;
+    border-color: #031633;
+}
+
+.name {
+    position: relative;
+    vertical-align: bottom;
+    margin-right: 10px;
+}

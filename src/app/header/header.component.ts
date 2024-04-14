@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -9,5 +10,16 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
 
-  title = "Bus Ticket Booking System";
+  title: string = "Bus Ticket Booking System";
+  name: string = '';
+
+  constructor(private route: Router) {}
+
+  logout(): void {
+    let auth = sessionStorage.getItem('auth');
+    if (auth) {
+      sessionStorage.removeItem('auth');
+      this.route.navigate(['/']);
+    }
+  }
 }
