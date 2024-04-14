@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { CommonModule } from '@angular/common';
+import { ApiService } from '../../api.service';
 
 @Component({
   selector: 'app-user',
@@ -21,22 +21,22 @@ export class UserComponent {
   schedule: any = {};
   loading: boolean = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(private apiService: ApiService) {}
+
+  getSearchData(ends: any) {
+    this.apiService.getCall('Bus/'+ ends.origin+'/'+ends.destination).subscribe((data) => {
+      this.buses = data;
+    })
+  }
 
   getBusData(bus_id: number){
     this.selectedBus = this.buses.filter((x: any) => x.bus_id === bus_id)[0];
-    this.http.get('http://localhost:5047/api/Route/'+this.selectedBus.route_id).subscribe((data) => {
+    this.apiService.getCall('Route/'+this.selectedBus.route_id).subscribe((data) => {
       this.route = data;
     });
-    this.http.get('http://localhost:5047/api/Schedule/'+this.selectedBus.schedule_id).subscribe((data) => {
+    this.apiService.getCall('Schedule/'+this.selectedBus.schedule_id).subscribe((data) => {
       this.schedule = data;
     });
-  }
-
-  getSearchData(ends: any) {
-    this.http.get('http://localhost:5047/api/Bus/'+ ends.origin+'/'+ends.destination).subscribe((data) => {
-      this.buses = data;
-    })
   }
 
   booking(bus: any, route: any, schedule: any) {

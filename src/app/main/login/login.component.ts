@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { jwtDecode } from "jwt-decode";
@@ -16,7 +16,6 @@ import { ApiService } from '../../api.service';
 export class LoginComponent {
 
   loginForm: FormGroup;
-  @Output() loginEvent: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private route: Router, private apiService: ApiService){
     this.loginForm = new FormGroup({
@@ -34,7 +33,6 @@ export class LoginComponent {
       } else if (decoded['type'] === 'admin') {
         this.route.navigate(['/admin']);
       }
-      this.loginEvent.emit(decoded['first_name']+' '+ decoded['last_name']);
     });
   }
 }

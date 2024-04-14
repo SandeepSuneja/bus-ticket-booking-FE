@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ApiService } from '../../api.service';
 
 @Component({
   selector: 'app-admin',
@@ -25,7 +25,8 @@ export class AdminComponent implements OnInit {
   routeForm: FormGroup;
   scheduleForm: FormGroup;
 
-  constructor(private http: HttpClient) {
+  constructor(private apiService: ApiService) {
+
     this.busForm = new FormGroup({
       bus_number: new FormControl('', Validators.required),
       seat_capacity: new FormControl('', Validators.required),
@@ -49,23 +50,19 @@ export class AdminComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.http.get('http://localhost:5047/api/Bus').subscribe((data) => {
+    this.apiService.getCall('Bus').subscribe((data) => {
       this.buses = data;
     });
 
-    this.http.get('http://localhost:5047/api/Route').subscribe((data) => {
+    this.apiService.getCall('Route').subscribe((data) => {
       this.routes = data;
     });
 
-    this.http.get('http://localhost:5047/api/Schedule').subscribe((data) => {
+    this.apiService.getCall('Schedule').subscribe((data) => {
       this.schedules = data;
     });
-
-    this.http.get('http://localhost:5047/api/User').subscribe((data) => {
-      this.users = data;
-    });
     
-    this.http.get('http://localhost:5047/api/Booking').subscribe((data) => {
+    this.apiService.getCall('Booking').subscribe((data) => {
       this.bookings = data;
     });
   }

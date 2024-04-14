@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-main',
@@ -12,29 +13,25 @@ import { Router, RouterModule } from '@angular/router';
   templateUrl: './main.component.html',
   styleUrl: './main.component.css'
 })
-export class MainComponent implements OnInit {
+export class MainComponent {
 
   name: string = '';
   signedIn: boolean = false;
 
   constructor(private router: Router) {}
 
-  ngOnInit(): void {
-    let auth = sessionStorage.getItem('auth');
-    if (auth) {
-      this.signedIn = true;
-    }
-  }
 
   logout(): void {
     sessionStorage.removeItem('auth');
-    this.signedIn = false;
     this.router.navigate(['/']);
   }
 
-  login(event: any) {
-    console.log('login');
-    this.name = event;
-    this.signedIn = true;
+  checkAuth(event: any) {
+    if (this.router.url !== '/login') {
+      let auth: any = sessionStorage.getItem('auth');
+      let decode_auth:any = jwtDecode(auth);
+      this.name = decode_auth['first_name'] + ' ' + decode_auth['last_name'];
+    }
+    this.signedIn = this.router.url === '/user' || this.router.url === '/admin';
   }
 }
